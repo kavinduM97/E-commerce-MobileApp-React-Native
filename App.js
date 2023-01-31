@@ -4,14 +4,33 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ProductsList} from './screens/ProductList.js';
 import {ProductDetails} from './screens/ProductDetails.js';
+import {LoginIcon} from './components/LoginIcon.js';
+import {Login} from './screens/Login.js';
+import {SignUp} from './screens/SignUp.js';
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Products" component={ProductsList} />
-        <Stack.Screen name="ProductDetails" component={ProductDetails} />
+        <Stack.Screen
+          name="Products"
+          component={ProductsList}
+          options={({navigation}) => ({
+            title: 'Products',
+            headerRight: () => <LoginIcon navigation={navigation} />,
+          })}
+        />
+        <Stack.Screen
+          name="ProductDetails"
+          component={ProductDetails}
+          options={({navigation}) => ({
+            title: 'ProductDetails',
+            headerRight: () => <LoginIcon navigation={navigation} />,
+          })}
+        />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );
