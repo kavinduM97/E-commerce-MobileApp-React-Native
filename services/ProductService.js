@@ -2,27 +2,28 @@
 const PRODUCTS = [
   {
     id: 1,
-    name: 'Apple iPhone 13 Pro Max',
-    price: 389,
-    image: require('../assets/product_images/phone.jpeg'),
+    name: 'Acer Predator Triton',
+    price: 979,
+    image: require('../assets/product_images/acerlap.jpg'),
     description:
-      '6.7-inch Super Retina XDR display with ProMotion for a faster, more responsive feel Cinematic mode adds shallow depth of field and shifts focus automatically in your videos',
+      'Processor: Intel Core i9 11900H RAM: 32 GB (16GB+16GB) Storage: 1024GB PCIe NVMe SSD',
   },
   {
     id: 2,
-    name: 'PNY GeForce GTX 1060 6GB',
+    name: 'Nvidia quadro rtx4000 8gb gddr6',
     price: 79,
-    image: require('../assets/product_images/graphics.jpeg'),
+    image: require('../assets/product_images/nvidia.jpg'),
     description:
       '6.7-inch Super Retina XDR display with ProMotion for a faster, more responsive feel Cinematic mode adds shallow depth of field and shifts focus automatically in your videos',
   },
+
   {
     id: 3,
-    name: 'Acer Predator Triton',
-    price: 979,
-    image: require('../assets/product_images/laptop.jpg'),
+    name: 'Apple iPhone 13 Pro Max',
+    price: 389,
+    image: require('../assets/product_images/aphone.jpg'),
     description:
-      'Processor: Intel Core i9 11900H RAM: 32 GB (16GB+16GB) Storage: 1024GB PCIe NVMe SSD',
+      '6.7-inch Super Retina XDR display with ProMotion for a faster, more responsive feel Cinematic mode adds shallow depth of field and shifts focus automatically in your videos',
   },
 ];
 
