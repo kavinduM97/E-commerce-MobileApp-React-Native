@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */
 import {Text, StyleSheet, View} from 'react-native';
 
-export function LoginIcon({navigation}) {
+export function ContinueIcon({navigation}) {
   return (
     <View style={styles.container}>
       <Text
         style={styles.text}
         onPress={() => {
-          navigation.navigate('Login');
+          navigation.navigate('Products');
         }}>
-        Login
+        Continue to shopping
       </Text>
     </View>
   );
@@ -18,7 +18,7 @@ export function LoginIcon({navigation}) {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 8,
-    backgroundColor: '#00337C',
+    backgroundColor: '#03C988',
     height: 42,
     width: 150,
     padding: 12,
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 13,
   },
 });

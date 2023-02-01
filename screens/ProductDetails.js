@@ -8,11 +8,13 @@ import {
   ScrollView,
   SafeAreaView,
   Button,
+  TouchableOpacity,
 } from 'react-native';
+import {AddtoCart} from '../components/AddtoCart';
 
 import {getProduct} from '../services/ProductService';
 
-export function ProductDetails({route}) {
+export function ProductDetails({route, navigation}) {
   const {productId} = route.params;
   const [product, setProduct] = useState({});
 
@@ -30,7 +32,14 @@ export function ProductDetails({route}) {
           <Text style={styles.name}>{product.name}</Text>
           <Text style={styles.price}>$ {product.price}</Text>
           <Text style={styles.description}>{product.description}</Text>
-          <Button title="Add To Cart" />
+
+          {/* <Button
+            onPress={() => {
+              navigation.navigate('Cart');
+            }}
+            title="Add To Cart"
+          /> */}
+          <AddtoCart productId={productId} navigation={navigation} />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -49,6 +58,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     padding: 16,
+    backgroundColor: '#E5E0FF',
   },
   name: {
     fontSize: 22,

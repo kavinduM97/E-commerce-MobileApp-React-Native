@@ -7,12 +7,16 @@ import {ProductDetails} from './screens/ProductDetails.js';
 import {LoginIcon} from './components/LoginIcon.js';
 import {Login} from './screens/Login.js';
 import {SignUp} from './screens/SignUp.js';
+import {Cart} from './screens/Cart.js';
+import SplashScreen from './screens/SplashScreen.js';
+import {ContinueIcon} from './components/ContinueIcon.js';
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen
           name="Products"
           component={ProductsList}
@@ -29,8 +33,30 @@ function App() {
             headerRight: () => <LoginIcon navigation={navigation} />,
           })}
         />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={({navigation}) => ({
+            title: 'Products',
+            headerRight: () => <ContinueIcon navigation={navigation} />,
+          })}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={({navigation}) => ({
+            title: 'Products',
+            headerRight: () => <ContinueIcon navigation={navigation} />,
+          })}
+        />
+        <Stack.Screen
+          name="Cart"
+          component={Cart}
+          options={({navigation}) => ({
+            title: 'Products',
+            headerRight: () => <ContinueIcon navigation={navigation} />,
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
