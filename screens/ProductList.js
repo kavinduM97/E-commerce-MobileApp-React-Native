@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eeeeee',
   },
   productsListContainer: {
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#E5E0FF',
     paddingVertical: 8,
     marginHorizontal: 8,
   },
