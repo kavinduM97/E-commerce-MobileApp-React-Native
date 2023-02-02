@@ -8,8 +8,9 @@ import {LoginIcon} from './components/LoginIcon.js';
 import {Login} from './screens/Login.js';
 import {SignUp} from './screens/SignUp.js';
 import {Cart} from './screens/Cart.js';
-import {ContinueIcon} from './components/ContinueIcon.js';
 import Tabs from './Tabs.js';
+import SplashScreen from './screens/SplashScreen.js';
+import {ContinueIcon} from './components/ContinueIcon.js';
 const Stack = createNativeStackNavigator();
 
 function App() {

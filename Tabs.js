@@ -5,11 +5,14 @@ import {ProductsList} from './screens/ProductList.js';
 import {Login} from './screens/Login.js';
 import {SignUp} from './screens/SignUp.js';
 import {Cart} from './screens/Cart.js';
+import {ProductDetails} from './screens/ProductDetails.js';
+import SplashScreen from './screens/SplashScreen.js';
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
   return (
     <Tab.Navigator
+      initialRouteName="SplashScreen"
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -59,6 +62,7 @@ const Tabs = () => {
         name="Login"
         component={Login}
         options={{
+          tabBarStyle: {display: 'none'},
           tabBarIcon: ({focused}) => (
             <View
               style={{alignItems: 'center', justifyContent: 'center', top: 10}}>
@@ -114,6 +118,33 @@ const Tabs = () => {
               </Text>
             </View>
           ),
+        }}
+      />
+
+      <Tab.Screen
+        name="ProductDetails"
+        component={ProductDetails}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{
+          tabBarStyle: {display: 'none'},
+          tabBarButton: () => null,
+          tabBarVisible: false,
+        }}
+      />
+      <Tab.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{
+          tabBarStyle: {display: 'none'},
+          tabBarButton: () => null,
+          tabBarVisible: false,
         }}
       />
     </Tab.Navigator>
