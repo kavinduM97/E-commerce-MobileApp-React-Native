@@ -1,19 +1,23 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect} from 'react';
-import {View, Text, Image, StyleSheet, ActivityIndicator, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ActivityIndicator,
+  Dimensions,
+} from 'react-native';
 import {ContinueIcon} from '../components/ContinueIcon';
 import {LoginIcon} from '../components/LoginIcon';
 
 const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../assets/logostoreLK.png')}
-        style={styles.logo}
-      />
+      <Image source={require('../assets/logo1.png')} style={styles.logo} />
       <Text style={styles.text}>Store.LK</Text>
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#2E2E2E"/>
+        <ActivityIndicator size="large" color="#2E2E2E" />
         <Text style={styles.loadingText}>Loading...</Text>
       </View>
       <View style={styles.iconContainer}>

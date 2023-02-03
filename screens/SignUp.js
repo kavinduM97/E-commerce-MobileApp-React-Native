@@ -7,7 +7,8 @@ import {
   Image,
   TextInput,
   Button,
-  TouchableOpacity,Alert,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 export function SignUp({navigation}) {
@@ -20,16 +21,16 @@ export function SignUp({navigation}) {
       return Alert.alert('Error', 'Invalid email');
     }
     if (password.length < 6) {
-      return Alert.alert('Error', 'Password must contain at least 6 characters');
+      return Alert.alert(
+        'Error',
+        'Password must contain at least 6 characters',
+      );
     }
     // Add your authentication logic here
   };
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={require('../assets/storelk-logo.png')}
-      />
+      <Image style={styles.logo} source={require('../assets/logo1.png')} />
 
       <View style={styles.formContainer}>
         <TextInput
@@ -45,19 +46,19 @@ export function SignUp({navigation}) {
           secureTextEntry={true}
           onChangeText={password => setPassword(password)}
         />
-               <TouchableOpacity style={styles.loginBtn} onPress={handleSignUp}>
+        <TouchableOpacity style={styles.loginBtn} onPress={handleSignUp}>
           <Text style={styles.loginText}>SignUp</Text>
         </TouchableOpacity>
       </View>
 
- 
       <TouchableOpacity
         style={styles.registerBtn}
         onPress={() => {
           navigation.navigate('Login');
         }}>
-        <Text style={styles.registerText}>
-        Already have a Account? Login Now
+        <Text>
+          <Text style={styles.registerText}>Already have a Account? </Text>{' '}
+          <Text style={styles.registerText2}>Login Now</Text>{' '}
         </Text>
       </TouchableOpacity>
     </View>
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 320,
-    height: 120,
+    height: 160,
     marginBottom: 40,
   },
   formContainer: {
@@ -114,6 +115,11 @@ const styles = StyleSheet.create({
   },
   registerText: {
     color: '#00337C',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  registerText2: {
+    color: '#CD0404',
     fontWeight: 'bold',
     fontSize: 16,
   },
