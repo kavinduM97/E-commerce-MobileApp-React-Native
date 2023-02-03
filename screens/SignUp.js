@@ -7,96 +7,114 @@ import {
   Image,
   TextInput,
   Button,
-  TouchableOpacity,
+  TouchableOpacity,Alert,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 export function SignUp({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleSignUp = () => {
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+      return Alert.alert('Error', 'Invalid email');
+    }
+    if (password.length < 6) {
+      return Alert.alert('Error', 'Password must contain at least 6 characters');
+    }
+    // Add your authentication logic here
+  };
   return (
     <View style={styles.container}>
       <Image
-        style={styles.image}
+        style={styles.logo}
         source={require('../assets/storelk-logo.png')}
       />
 
-      <View style={styles.inputView}>
+      <View style={styles.formContainer}>
         <TextInput
-          style={styles.TextInput}
-          placeholder="Email."
-          placeholderTextColor="#003f5c"
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#8A8F9E"
           onChangeText={email => setEmail(email)}
         />
-      </View>
-      <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
-          placeholder="Password."
-          placeholderTextColor="#003f5c"
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#8A8F9E"
           secureTextEntry={true}
           onChangeText={password => setPassword(password)}
         />
+               <TouchableOpacity style={styles.loginBtn} onPress={handleSignUp}>
+          <Text style={styles.loginText}>SignUp</Text>
+        </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.RegBtn}>
-        <Text style={styles.RegText}>Register</Text>
-      </TouchableOpacity>
-
+ 
       <TouchableOpacity
+        style={styles.registerBtn}
         onPress={() => {
           navigation.navigate('Login');
         }}>
-        <Text style={styles.logText}>Already have a Account? Login Now</Text>
+        <Text style={styles.registerText}>
+        Already have a Account? Login Now
+        </Text>
       </TouchableOpacity>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 30,
   },
-  image: {
+  logo: {
+    width: 320,
+    height: 120,
     marginBottom: 40,
   },
-  inputView: {
-    backgroundColor: '#CDE990',
-    borderRadius: 30,
-    width: '70%',
-    height: 45,
-    marginBottom: 20,
-    alignItems: 'center',
-  },
-  TextInput: {
-    height: 50,
-    flex: 1,
-    padding: 10,
-    marginLeft: 20,
-  },
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
-  },
-  RegBtn: {
-    width: '80%',
-    borderRadius: 25,
-    height: 50,
+  formContainer: {
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
+  },
+  input: {
+    width: '100%',
+    height: 50,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#8A8F9E',
+    borderRadius: 10,
+    fontSize: 16,
+    color: '#161F3D',
+  },
+  loginBtn: {
+    width: '100%',
+    height: 50,
+    borderRadius: 10,
     backgroundColor: '#00337C',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
   },
-  RegText: {
-    color: 'white',
-    textAlign: 'left',
+  loginText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
-  logText: {
-    color: 'green',
-
-    textShadowColor: 'black',
-    marginTop: 40,
+  registerBtn: {
+    width: '100%',
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  registerText: {
+    color: '#00337C',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

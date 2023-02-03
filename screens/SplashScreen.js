@@ -1,16 +1,10 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect} from 'react';
-import {View, Text, Image, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, Text, Image, StyleSheet, ActivityIndicator, Dimensions} from 'react-native';
 import {ContinueIcon} from '../components/ContinueIcon';
 import {LoginIcon} from '../components/LoginIcon';
 
 const SplashScreen = ({navigation}) => {
-  useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate('Products');
-    }, 3000);
-  });
-
   return (
     <View style={styles.container}>
       <Image
@@ -18,14 +12,19 @@ const SplashScreen = ({navigation}) => {
         style={styles.logo}
       />
       <Text style={styles.text}>Store.LK</Text>
-      <ActivityIndicator size="large" />
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#2E2E2E"/>
+        <Text style={styles.loadingText}>Loading...</Text>
+      </View>
       <View style={styles.iconContainer}>
         <LoginIcon navigation={navigation} />
+        <ContinueIcon navigation={navigation} />
       </View>
-      <ContinueIcon navigation={navigation} />
     </View>
   );
 };
+
+const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
@@ -44,8 +43,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  iconContainer: {
+  loadingContainer: {
+    alignItems: 'center',
     marginBottom: 20,
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#2E2E2E',
+    marginTop: 10,
+  },
+  iconContainer: {
+    width: screenWidth,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginTop: 20,
   },
 });
 

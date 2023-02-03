@@ -12,7 +12,7 @@ const PRODUCTS = [
     id: 2,
     name: 'Nvidia quadro rtx4000 8gb gddr6',
     price: 79,
-    image: require('../assets/product_images/nvidia.jpg'),
+    image: require('../assets/product_images/evganividia.jpg'),
     description:
       '6.7-inch Super Retina XDR display with ProMotion for a faster, more responsive feel Cinematic mode adds shallow depth of field and shifts focus automatically in your videos',
   },

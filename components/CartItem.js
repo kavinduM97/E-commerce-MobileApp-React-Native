@@ -1,14 +1,9 @@
 /* eslint-disable prettier/prettier */
-import {React, useState} from 'react';
-import {
-  Text,
-  Image,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Input,
-} from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import React, {useState} from 'react';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import {Colors, Typography} from 'react-native/Libraries/NewAppScreen';
 
 export function CartItem({
   name,
@@ -17,18 +12,21 @@ export function CartItem({
   quantity,
   totalPrice,
   navigation,
+  onDelete,
 }) {
-  const onDelete = () => {};
-
-  const handleChange = () => {};
   return (
     <View style={styles.cartLine}>
-      <Image style={styles.image} source={image} />
-      <Text style={styles.lineLeft}>
-        {name} {'\n'} x {quantity}{' '}
-        <Text style={styles.productTotal}>${totalPrice}</Text>
-      </Text>
-      <View style={styles.leftContainer}>
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={image} />
+      </View>
+      <View style={styles.detailsContainer}>
+        <Text style={styles.name}>{name}</Text>
+        <View style={styles.quantityContainer}>
+          <Text style={styles.quantity}>x {quantity}</Text>
+        </View>
+      </View>
+      <View style={styles.priceContainer}>
+        <Text style={styles.price}>${totalPrice}</Text>
         <TouchableOpacity onPress={onDelete} style={styles.closeButton}>
           <Text style={styles.closeButtonText}>X</Text>
         </TouchableOpacity>
@@ -36,21 +34,65 @@ export function CartItem({
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   cartLine: {
     flexDirection: 'row',
-    width: '80%',
-    paddingVertical: 10,
-  },
-  leftContainer: {
-    position: 'absolute',
-    right: -50,
-    top: 10,
+    padding: 16,
+    backgroundColor: '#fff',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+    marginVertical: 8,
+    borderRadius: 8,
+  },
+  imageContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    overflow: 'hidden',
+    marginRight: 16,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+  detailsContainer: {
+    flex: 1,
+  },
+  name: {
+    fontSize: 18,
+    color: Colors.primary,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  quantity: {
+    fontSize: 16,
+    color: Colors.gray,
+    marginRight: 8,
+  },
+  priceContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  price: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Colors.primary,
   },
   closeButton: {
     backgroundColor: 'red',
-    padding: 5,
+    padding: 6,
     borderRadius: 5,
     alignSelf: 'center',
     marginTop: 5,
@@ -58,48 +100,5 @@ const styles = StyleSheet.create({
   closeButtonText: {
     color: 'white',
     fontWeight: 'bold',
-  },
-  image: {
-    width: '25%',
-    aspectRatio: 1,
-    marginRight: 5,
-  },
-  cartLineTotal: {
-    flexDirection: 'row',
-    borderTopColor: '#dddddd',
-    borderTopWidth: 1,
-  },
-  productTotal: {
-    fontWeight: 'bold',
-  },
-  lineTotal: {
-    fontWeight: 'bold',
-  },
-  lineLeft: {
-    fontSize: 20,
-    lineHeight: 40,
-    color: '#333333',
-  },
-  lineRight: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333333',
-    textAlign: 'left',
-  },
-  mainTotal: {
-    flex: 1,
-    fontSize: 20,
-    fontWeight: 'bold',
-    lineHeight: 40,
-    color: '#333333',
-    textAlign: 'right',
-  },
-  itemsList: {
-    backgroundColor: '#eeeeee',
-  },
-  itemsListContainer: {
-    backgroundColor: '#eeeeee',
-    paddingVertical: 8,
-    marginHorizontal: 8,
   },
 });
