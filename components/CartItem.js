@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -12,8 +12,14 @@ export function CartItem({
   quantity,
   totalPrice,
   navigation,
-  onDelete,
+  setTotal,
+  total,
+  productCount,
+  setProductCount,
+  setDataSet,
 }) {
+  const onDelete = () => {};
+
   return (
     <View style={styles.cartLine}>
       <View style={styles.imageContainer}>
