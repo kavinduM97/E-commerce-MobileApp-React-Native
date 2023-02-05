@@ -7,21 +7,39 @@ import {CartItem} from '../components/CartItem';
 
 export function Cart({navigation}) {
   function renderProduct({item: cart}) {
-    return <CartItem {...cart} navigation={navigation} />;
+    return (
+      <CartItem
+        {...cart}
+        navigation={navigation}
+        totalAmount={total}
+        setTotalAmount={setTotal}
+        selectedItems={selectedItems}
+        totalQuantity={totalQuantity}
+        setTotalQuantity={setTotalQuantity}
+        setSelectedItems={setSelectedItems}
+      />
+    );
   }
 
   const [dataSet, setDataSet] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
-
-  function calculateTotalAmount(data) {
-    return data.reduce((sum, item) => sum + item.price, 0);
-  }
+  const [total, setTotal] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [selectedItems, setSelectedItems] = useState({});
 
   useEffect(() => {
     const newDataSet = getCartItems();
     setDataSet(newDataSet);
-    setTotalAmount(calculateTotalAmount(newDataSet));
   }, []);
+  useEffect(() => {
+    let newTotal = 0;
+    let newTotalQuantity = 0;
+    Object.values(selectedItems).forEach(({price, quantity}) => {
+      newTotal += price * quantity;
+      newTotalQuantity += quantity;
+    });
+    setTotal(newTotal);
+    setTotalQuantity(newTotalQuantity);
+  }, [selectedItems]);
 
   return (
     <View style={styles.container}>
@@ -33,7 +51,7 @@ export function Cart({navigation}) {
         keyExtractor={item => item.id.toString()}
       />
       <View style={styles.checkoutContainer}>
-        <Text style={styles.totalAmount}>Total amount: {totalAmount}</Text>
+        <Text style={styles.totalAmount}>Total amount: {total}</Text>
         <TouchableOpacity style={styles.checkoutButton}>
           <Text style={styles.checkoutButtonText}>Checkout Now</Text>
         </TouchableOpacity>
