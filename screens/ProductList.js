@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, StyleSheet, TextInput} from 'react-native';
 import {getProducts} from '../services/ProductService';
 import {Product} from '../components/Product';
+import axios from 'axios';
 
 export function ProductsList({navigation}) {
   function renderProduct({item: product}) {
@@ -10,7 +11,7 @@ export function ProductsList({navigation}) {
       <Product
         {...product}
         onPress={() => {
-          navigation.navigate('ProductDetails', {productId: product.id});
+          navigation.navigate('ProductDetails', {productId: product.productId});
         }}
       />
     );
@@ -19,7 +20,15 @@ export function ProductsList({navigation}) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    setProducts(getProducts());
+    axios
+      .get('https://longshinylamp29.conveyor.cloud/api/Product')
+      .then(res => {
+        setProducts(res.data);
+      })
+      .catch(err => {
+        console.log('Error Message:', err.message);
+        console.log('Request Details:', err.config);
+      });
   }, []);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,7 +53,7 @@ export function ProductsList({navigation}) {
         <FlatList
           style={styles.productsList}
           contentContainerStyle={styles.productsListContainer}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.productId.toString()}
           data={products}
           renderItem={renderProduct}
         />
@@ -52,7 +61,7 @@ export function ProductsList({navigation}) {
         <FlatList
           style={styles.productsList}
           contentContainerStyle={styles.productsListContainer}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.productId.toString()}
           data={filteredProducts}
           renderItem={renderProduct}
         />

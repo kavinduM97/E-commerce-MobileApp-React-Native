@@ -1,7 +1,17 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+  SectionList,
+} from 'react-native';
 import {getCartItems} from '../services/CartService';
+import axios from 'axios';
 
 import {CartItem} from '../components/CartItem';
 
@@ -27,14 +37,24 @@ export function Cart({navigation}) {
   const [selectedItems, setSelectedItems] = useState({});
 
   useEffect(() => {
-    const newDataSet = getCartItems();
-    setDataSet(newDataSet);
+    axios
+      .get(
+        `https://longshinylamp29.conveyor.cloud/api/Order/GetAllProductsInCart/user%40example.com`,
+      )
+      .then(res => {
+        let products;
+        products = res.data;
+        setDataSet([...products]);
+      })
+      .catch(err => {
+        alert('No cart items yet..');
+      });
   }, []);
   useEffect(() => {
     let newTotal = 0;
     let newTotalQuantity = 0;
-    Object.values(selectedItems).forEach(({price, quantity}) => {
-      newTotal += price * quantity;
+    Object.values(selectedItems).forEach(({totalPrice, quantity}) => {
+      newTotal += totalPrice;
       newTotalQuantity += quantity;
     });
     setTotal(newTotal);
@@ -48,7 +68,7 @@ export function Cart({navigation}) {
         contentContainerStyle={styles.itemsListContainer}
         data={dataSet}
         renderItem={renderProduct}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item.cartId.toString()}
       />
       <View style={styles.checkoutContainer}>
         <Text style={styles.totalAmount}>Total amount: {total}</Text>
@@ -63,6 +83,7 @@ export function Cart({navigation}) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#eeeeee',
+    overflow: 'scroll',
   },
 
   itemsList: {
@@ -83,6 +104,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginHorizontal: 8,
     marginTop: 8,
+    marginBottom: 8,
     borderRadius: 4,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},

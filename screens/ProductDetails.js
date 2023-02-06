@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import {
   Text,
   StyleSheet,
@@ -19,8 +20,17 @@ export function ProductDetails({route, navigation}) {
   const [product, setProduct] = useState({});
 
   useEffect(() => {
-    setProduct(getProduct(productId));
-  }, [productId]);
+    axios
+      .get(`https://longshinylamp29.conveyor.cloud/api/Product/${productId}`)
+      .then(res => {
+        let temp = {};
+        temp = res.data;
+        setProduct({...temp});
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+  });
 
   return (
     <SafeAreaView>
@@ -53,7 +63,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   image: {
-    width: '100%',
+    width: '60%',
+
     aspectRatio: 1,
   },
   infoContainer: {

@@ -6,7 +6,8 @@ import CheckBox from '@react-native-community/checkbox';
 import {Colors, Typography} from 'react-native/Libraries/NewAppScreen';
 
 export function CartItem({
-  name,
+  productName,
+  cartId,
   price,
   image,
   totalPrice,
@@ -17,12 +18,12 @@ export function CartItem({
 }) {
   const onDelete = () => {};
 
-  const updateSelectedItems = (name, price, quantity, checked) => {
+  const updateSelectedItems = (cartId, totalPrice, quantity, checked) => {
     if (checked) {
-      setSelectedItems({...selectedItems, [name]: {price, quantity}});
+      setSelectedItems({...selectedItems, [cartId]: {totalPrice, quantity}});
     } else {
       const newSelectedItems = {...selectedItems};
-      delete newSelectedItems[name];
+      delete newSelectedItems[cartId];
       setSelectedItems(newSelectedItems);
     }
   };
@@ -33,7 +34,7 @@ export function CartItem({
         <Image style={styles.image} source={image} />
       </View>
       <View style={styles.detailsContainer}>
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.productName}>{productName}</Text>
         <View style={styles.quantityContainer}>
           <Text style={styles.quantity}>x {quantity}</Text>
         </View>
@@ -43,9 +44,9 @@ export function CartItem({
       </View>
       <View style={styles.priceContainer}>
         <CheckBox
-          value={name in selectedItems}
+          value={cartId in selectedItems}
           onValueChange={checked =>
-            updateSelectedItems(name, price, quantity, checked)
+            updateSelectedItems(cartId, totalPrice, quantity, checked)
           }
           tintColors={{true: Colors.primary, false: '#c1c1c1'}}
           style={{width: 20, height: 20}}
@@ -93,8 +94,8 @@ const styles = StyleSheet.create({
   detailsContainer: {
     flex: 1,
   },
-  name: {
-    fontSize: 18,
+  productName: {
+    fontSize: 20,
     color: Colors.primary,
     fontWeight: 'bold',
     marginBottom: 4,
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   price: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: Colors.primary,
   },

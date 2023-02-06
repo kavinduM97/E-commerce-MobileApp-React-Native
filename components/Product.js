@@ -5,7 +5,7 @@ import {Text, Image, View, StyleSheet, TouchableOpacity} from 'react-native';
 export function Product({name, price, image, onPress}) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
-      <Image style={styles.image} source={image} />
+      <Image style={styles.image} source="https://picsum.photos/1000/667" />
       <View style={styles.infoContainer}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.price}>$ {price}</Text>
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     marginTop: '4%',
   },
   image: {
-    width: '100%',
+    width: '60%',
     aspectRatio: 1,
   },
   infoContainer: {
