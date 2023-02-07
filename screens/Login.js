@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,24 +10,26 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import {login} from '../loginR/userAction';
+import {useDispatch, useSelector} from 'react-redux';
 
 export function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const userLogin = useSelector(state => state.userLogin);
 
+  const {userInfo} = userLogin;
+  useEffect(() => {
+    if (userInfo !== undefined && userInfo.Email) {
+      navigation.navigate('Products');
+    } else {
+    }
+  });
   const handleLogin = () => {
-    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!emailRegex.test(email)) {
-      return Alert.alert('Error', 'Invalid email');
-    }
-    if (password.length < 6) {
-      return Alert.alert(
-        'Error',
-        'Password must contain at least 6 characters',
-      );
-    }
-    // authentication logic
+    dispatch(login(email, password));
   };
+
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require('../assets/logo1.png')} />
@@ -72,6 +74,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 30,
+  },
+  containerlg: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 16,
   },
   logo: {
     width: 320,

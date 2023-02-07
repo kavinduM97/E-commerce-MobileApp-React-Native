@@ -11,11 +11,17 @@ import {
   SectionList,
 } from 'react-native';
 import {getCartItems} from '../services/CartService';
+import {useSelector} from 'react-redux';
 import axios from 'axios';
 
 import {CartItem} from '../components/CartItem';
 
 export function Cart({navigation}) {
+  const userLogin = useSelector(state => state.userLogin);
+
+  const {userInfo} = userLogin;
+  const Email = userInfo ? userInfo.Email : null;
+  let userEmail = Email;
   function renderProduct({item: cart}) {
     return (
       <CartItem
@@ -39,7 +45,7 @@ export function Cart({navigation}) {
   useEffect(() => {
     axios
       .get(
-        `https://longshinylamp29.conveyor.cloud/api/Order/GetAllProductsInCart/user%40example.com`,
+        `https://oldgoldleaf0.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
       )
       .then(res => {
         let products;
@@ -49,7 +55,8 @@ export function Cart({navigation}) {
       .catch(err => {
         alert('No cart items yet..');
       });
-  }, []);
+  }, [userEmail]);
+
   useEffect(() => {
     let newTotal = 0;
     let newTotalQuantity = 0;

@@ -1,11 +1,16 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import {View, Text, FlatList, StyleSheet, TextInput} from 'react-native';
 import {getProducts} from '../services/ProductService';
 import {Product} from '../components/Product';
 import axios from 'axios';
 
 export function ProductsList({navigation}) {
+  const userLogin = useSelector(state => state.userLogin);
+
+  const {userInfo} = userLogin;
+  const Email = userInfo ? userInfo.Email : null;
   function renderProduct({item: product}) {
     return (
       <Product
@@ -21,7 +26,7 @@ export function ProductsList({navigation}) {
 
   useEffect(() => {
     axios
-      .get('https://longshinylamp29.conveyor.cloud/api/Product')
+      .get('https://oldgoldleaf0.conveyor.cloud/api/Product')
       .then(res => {
         setProducts(res.data);
       })

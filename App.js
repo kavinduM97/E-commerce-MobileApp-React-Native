@@ -11,13 +11,17 @@ import {Cart} from './screens/Cart.js';
 import Tabs from './Tabs.js';
 import SplashScreen from './screens/SplashScreen.js';
 import {ContinueIcon} from './components/ContinueIcon.js';
+import {Provider} from 'react-redux';
+import store from './loginR/store';
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tabs />
+      </NavigationContainer>
+    </Provider>
   );
 }
 

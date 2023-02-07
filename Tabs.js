@@ -14,6 +14,7 @@ import {SignUp} from './screens/SignUp.js';
 import {Cart} from './screens/Cart.js';
 import {ProductDetails} from './screens/ProductDetails.js';
 import SplashScreen from './screens/SplashScreen.js';
+import {Profile} from './screens/Profile.js';
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
@@ -71,8 +72,8 @@ const Tabs = () => {
         />
 
         <Tab.Screen
-          name="Login"
-          component={Login}
+          name="Profile"
+          component={Profile}
           options={{
             tabBarStyle: {display: 'none'},
             tabBarIcon: ({focused}) => (
@@ -161,6 +162,16 @@ const Tabs = () => {
         <Tab.Screen
           name="SignUp"
           component={SignUp}
+          options={{
+            tabBarStyle: {display: 'none'},
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        />
+
+        <Tab.Screen
+          name="Login"
+          component={Login}
           options={{
             tabBarStyle: {display: 'none'},
             tabBarButton: () => null,
