@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {login} from '../loginR/userAction';
 import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function Login({navigation}) {
   const [email, setEmail] = useState('');
@@ -21,11 +22,17 @@ export function Login({navigation}) {
 
   const {userInfo} = userLogin;
   useEffect(() => {
-    if (userInfo !== undefined && userInfo.Email) {
+    if (userInfo && userInfo.Email) {
       navigation.navigate('Products');
     } else {
     }
-  });
+  }, [userInfo, navigation]);
+
+  // const handleError = async () => {
+  //   console.log('handle error');
+  //   const userInfo = await AsyncStorage.getItem('userInfo');
+  //   console.log(userInfo);
+  // };
   const handleLogin = () => {
     dispatch(login(email, password));
   };

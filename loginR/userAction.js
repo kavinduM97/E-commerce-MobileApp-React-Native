@@ -1,14 +1,13 @@
 /* eslint-disable prettier/prettier */
-import {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {AnyAction} from 'redux';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_REQUEST,
   USER_LOGOUT,
   USER_LOGIN_FAIL,
+  RESET_USER_LOGIN,
 } from './userConstants';
-import {RootState} from './store';
 import axios from 'axios';
 
 export const login = (email, password) => async dispatch => {
@@ -20,7 +19,7 @@ export const login = (email, password) => async dispatch => {
     });
 
     const response = await axios
-      .post('https://oldgoldleaf0.conveyor.cloud/api/User/login', {
+      .post('https://rightashgrape66.conveyor.cloud/api/User/login', {
         email,
         password,
       })
@@ -52,6 +51,6 @@ export const login = (email, password) => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
-  dispatch({type: USER_LOGOUT});
+  dispatch({type: RESET_USER_LOGIN, payload: {userInfo: null}});
   AsyncStorage.removeItem('userInfo');
 };

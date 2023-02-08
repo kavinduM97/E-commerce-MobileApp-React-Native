@@ -43,9 +43,16 @@ export function Cart({navigation}) {
   const [selectedItems, setSelectedItems] = useState({});
 
   useEffect(() => {
+    if (!userEmail) {
+      setDataSet([]);
+      setTotal(0);
+      setTotalQuantity(0);
+      setSelectedItems({});
+      return;
+    }
     axios
       .get(
-        `https://oldgoldleaf0.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
+        `https://rightashgrape66.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
       )
       .then(res => {
         let products;

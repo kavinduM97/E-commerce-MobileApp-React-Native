@@ -26,7 +26,7 @@ export function ProductsList({navigation}) {
 
   useEffect(() => {
     axios
-      .get('https://oldgoldleaf0.conveyor.cloud/api/Product')
+      .get('https://rightashgrape66.conveyor.cloud/api/Product')
       .then(res => {
         setProducts(res.data);
       })
