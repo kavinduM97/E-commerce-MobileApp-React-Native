@@ -45,7 +45,7 @@ export const addtoCartss = (productId, userEmail, quantity) => {
           payload: res.data.message,
         });
         // console.log('action work');
-        console.log(res.data.message);
+        //console.log(res.data.message);
       } else {
         console.log('Unable to add to cart');
       }
