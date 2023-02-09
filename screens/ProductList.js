@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {View, Text, FlatList, StyleSheet, TextInput} from 'react-native';
-import {getProducts} from '../services/ProductService';
 import {Product} from '../components/Product';
+import {getProductsss} from '../ProductsRedux/productsAction';
 import axios from 'axios';
 
 export function ProductsList({navigation}) {
@@ -11,6 +11,25 @@ export function ProductsList({navigation}) {
 
   const {userInfo} = userLogin;
   const Email = userInfo ? userInfo.Email : null;
+
+  const myproductr = useSelector(state => state.myproductr);
+  //console.log('mypppppp');
+  //console.log(JSON.parse(myproductr));
+
+  //const {products} = myproductr;
+
+  console.log('hhhhhhj');
+  console.log(myproductr.products);
+  const dispatch = useDispatch();
+  const [dataFetched, setDataFetched] = useState(false);
+
+  useEffect(() => {
+    if (!dataFetched) {
+      dispatch(getProductsss());
+      setDataFetched(true);
+    }
+  }, [dataFetched, dispatch]);
+
   function renderProduct({item: product}) {
     return (
       <Product
@@ -22,27 +41,15 @@ export function ProductsList({navigation}) {
     );
   }
 
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('https://rightashgrape66.conveyor.cloud/api/Product')
-      .then(res => {
-        setProducts(res.data);
-      })
-      .catch(err => {
-        console.log('Error Message:', err.message);
-        console.log('Request Details:', err.config);
-      });
-  }, []);
-
   const [searchTerm, setSearchTerm] = useState('');
   const handleSearch = text => {
     setSearchTerm(text);
   };
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  // const filteredProducts = products
+  //   ? products.filter(product =>
+  //       product.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  //     )
+  //   : [];
 
   return (
     <View style={{flex: 1}}>
@@ -59,7 +66,7 @@ export function ProductsList({navigation}) {
           style={styles.productsList}
           contentContainerStyle={styles.productsListContainer}
           keyExtractor={item => item.productId.toString()}
-          data={products}
+          data={myproductr.products}
           renderItem={renderProduct}
         />
       ) : (
@@ -67,7 +74,7 @@ export function ProductsList({navigation}) {
           style={styles.productsList}
           contentContainerStyle={styles.productsListContainer}
           keyExtractor={item => item.productId.toString()}
-          data={filteredProducts}
+          data={myproductr.products}
           renderItem={renderProduct}
         />
       )}

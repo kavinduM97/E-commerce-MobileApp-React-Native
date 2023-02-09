@@ -21,7 +21,7 @@ export function ProductDetails({route, navigation}) {
 
   useEffect(() => {
     axios
-      .get(`https://rightashgrape66.conveyor.cloud/api/Product/${productId}`)
+      .get(`https://funyellowtrail36.conveyor.cloud/api/Product/${productId}`)
       .then(res => {
         let temp = {};
         temp = res.data;

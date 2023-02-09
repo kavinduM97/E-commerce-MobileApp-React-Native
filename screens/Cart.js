@@ -52,7 +52,7 @@ export function Cart({navigation}) {
     }
     axios
       .get(
-        `https://rightashgrape66.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
+        `https://funyellowtrail36.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
       )
       .then(res => {
         let products;
