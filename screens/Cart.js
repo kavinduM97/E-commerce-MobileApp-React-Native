@@ -17,7 +17,10 @@ import axios from 'axios';
 import {CartItem} from '../components/CartItem';
 import {getCartss} from '../cartRedux/cartAction';
 
-export function Cart({navigation}) {
+export function Cart({navigation, route}) {
+  var clicked = route.params;
+  console.log(clicked);
+
   const userLogin = useSelector(state => state.userLogin);
   const dispatch = useDispatch();
   const {userInfo} = userLogin;
@@ -50,12 +53,18 @@ export function Cart({navigation}) {
   const [selectedItems, setSelectedItems] = useState({});
   const [dataFetched, setDataFetched] = useState(false);
 
+  // if (dataFetched) {
+  //   setDataFetched(clicked);
+  // }
   useEffect(() => {
     if (!dataFetched) {
       dispatch(getCartss(userEmail));
       setDataFetched(true);
+    } else {
+      // here you can update the component when the button is clicked
+      dispatch(getCartss(userEmail));
     }
-  }, [dataFetched, dispatch, userEmail]);
+  }, [clicked, dispatch, dataFetched, userEmail]);
 
   useEffect(() => {
     let newTotal = 0;

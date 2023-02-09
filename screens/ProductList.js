@@ -18,7 +18,7 @@ export function ProductsList({navigation}) {
 
   //const {products} = myproductr;
 
-  // console.log('hhhhhhj');
+  // console.log('wewewewe');
   // console.log(myproductr.products);
   const dispatch = useDispatch();
   const [dataFetched, setDataFetched] = useState(false);

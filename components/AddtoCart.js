@@ -1,10 +1,19 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, View, Text} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {addtoCartss} from '../cartRedux/cartAction';
 
 export function AddtoCart({productId, stock, navigation}) {
   const [quantity, setQuantity] = useState(0);
-
+  const [clicked, setClicked] = useState(false);
+  const addmyCartItemss = useSelector(state => state.mycartt);
+  const userLogin = useSelector(state => state.userLogin);
+  const dispatch = useDispatch();
+  const {userInfo} = userLogin;
+  const Email = userInfo ? userInfo.Email : null;
+  let userEmail = Email;
+  // var clicked = false;
   const increaseOrder = () => {
     setQuantity(quantity + 1);
   };
@@ -13,8 +22,12 @@ export function AddtoCart({productId, stock, navigation}) {
     setQuantity(quantity - 1);
   };
 
-  const addToCart = () => {
-    // interact with backend
+  const AddToCart = () => {
+    dispatch(addtoCartss(productId, userEmail, quantity));
+    setClicked(!clicked);
+
+    navigation.navigate('Cart', clicked);
+    alert('add to cart  successfully');
   };
 
   return (
@@ -43,7 +56,7 @@ export function AddtoCart({productId, stock, navigation}) {
       <View style={styles.addButtonContainer}>
         <Button
           onPress={() => {
-            navigation.navigate('Cart');
+            AddToCart();
           }}
           title="Add To Cart"
         />

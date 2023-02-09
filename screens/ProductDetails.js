@@ -55,7 +55,7 @@ export function ProductDetails({route, navigation}) {
             }}
             title="Add To Cart"
           /> */}
-          <AddtoCart productId={Id} navigation={navigation} />
+          <AddtoCart productId={Id.productId} navigation={navigation} />
         </View>
       </ScrollView>
     </SafeAreaView>
