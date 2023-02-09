@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 import {
   Text,
@@ -16,32 +17,37 @@ import {AddtoCart} from '../components/AddtoCart';
 import {getProduct} from '../services/ProductService';
 
 export function ProductDetails({route, navigation}) {
-  const {productId} = route.params;
-  const [product, setProduct] = useState({});
+  const Id = route.params;
 
-  useEffect(() => {
-    axios
-      .get(`https://funyellowtrail36.conveyor.cloud/api/Product/${productId}`)
-      .then(res => {
-        let temp = {};
-        temp = res.data;
-        setProduct({...temp});
-      })
-      .catch(err => {
-        alert(err.message);
-      });
-  });
+  // const [product, setProduct] = useState({});
+  const myproductr = useSelector(state => state.myproductr);
+  const [filteredProducts] = myproductr.products
+    ? myproductr.products.filter(product => product.productId === Id.productId)
+    : [];
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`https://funyellowtrail36.conveyor.cloud/api/Product/${productId}`)
+  //     .then(res => {
+  //       let temp = {};
+  //       temp = res.data;
+  //       setProduct({...temp});
+  //     })
+  //     .catch(err => {
+  //       alert(err.message);
+  //     });
+  // });
 
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={product.image} />
+          <Image style={styles.image} source={filteredProducts.image} />
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.name}>{product.name}</Text>
-          <Text style={styles.price}>$ {product.price}</Text>
-          <Text style={styles.description}>{product.description}</Text>
+          <Text style={styles.name}>{filteredProducts.name}</Text>
+          <Text style={styles.price}>$ {filteredProducts.price}</Text>
+          <Text style={styles.description}>{filteredProducts.description}</Text>
 
           {/* <Button
             onPress={() => {
@@ -49,7 +55,7 @@ export function ProductDetails({route, navigation}) {
             }}
             title="Add To Cart"
           /> */}
-          <AddtoCart productId={productId} navigation={navigation} />
+          <AddtoCart productId={Id} navigation={navigation} />
         </View>
       </ScrollView>
     </SafeAreaView>

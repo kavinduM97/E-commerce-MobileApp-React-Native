@@ -18,8 +18,8 @@ export function ProductsList({navigation}) {
 
   //const {products} = myproductr;
 
-  console.log('hhhhhhj');
-  console.log(myproductr.products);
+  // console.log('hhhhhhj');
+  // console.log(myproductr.products);
   const dispatch = useDispatch();
   const [dataFetched, setDataFetched] = useState(false);
 
@@ -45,11 +45,11 @@ export function ProductsList({navigation}) {
   const handleSearch = text => {
     setSearchTerm(text);
   };
-  // const filteredProducts = products
-  //   ? products.filter(product =>
-  //       product.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  //     )
-  //   : [];
+  const filteredProducts = myproductr.products
+    ? myproductr.products.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+    : [];
 
   return (
     <View style={{flex: 1}}>
@@ -74,7 +74,7 @@ export function ProductsList({navigation}) {
           style={styles.productsList}
           contentContainerStyle={styles.productsListContainer}
           keyExtractor={item => item.productId.toString()}
-          data={myproductr.products}
+          data={filteredProducts}
           renderItem={renderProduct}
         />
       )}
