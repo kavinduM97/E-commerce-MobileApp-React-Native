@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {userLoginReducer} from './userReducers';
 import allproductsReducer from '../ProductsRedux/productsReducers';
+import cartReducer from '../cartRedux/cartReducers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const reducers = combineReducers({
   userLogin: userLoginReducer,
   myproductr: allproductsReducer,
+  mycartt: cartReducer,
 });
 
 const getUserInfoFromStorage = async () => {

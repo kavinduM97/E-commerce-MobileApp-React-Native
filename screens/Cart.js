@@ -10,18 +10,25 @@ import {
   ScrollView,
   SectionList,
 } from 'react-native';
-import {getCartItems} from '../services/CartService';
-import {useSelector} from 'react-redux';
+//import {getCartItems} from '../services/CartService';
+import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 
 import {CartItem} from '../components/CartItem';
+import {getCartss} from '../cartRedux/cartAction';
 
 export function Cart({navigation}) {
   const userLogin = useSelector(state => state.userLogin);
-
+  const dispatch = useDispatch();
   const {userInfo} = userLogin;
   const Email = userInfo ? userInfo.Email : null;
   let userEmail = Email;
+  console.log('this is email' + userEmail);
+
+  const myCartItemss = useSelector(state => state.mycartt);
+
+  console.log(myCartItemss.cartItems);
+
   function renderProduct({item: cart}) {
     return (
       <CartItem
@@ -41,28 +48,14 @@ export function Cart({navigation}) {
   const [total, setTotal] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [selectedItems, setSelectedItems] = useState({});
+  const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
-    if (!userEmail) {
-      setDataSet([]);
-      setTotal(0);
-      setTotalQuantity(0);
-      setSelectedItems({});
-      return;
+    if (!dataFetched) {
+      dispatch(getCartss(userEmail));
+      setDataFetched(true);
     }
-    axios
-      .get(
-        `https://funyellowtrail36.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
-      )
-      .then(res => {
-        let products;
-        products = res.data;
-        setDataSet([...products]);
-      })
-      .catch(err => {
-        alert('No cart items yet..');
-      });
-  }, [userEmail]);
+  }, [dataFetched, dispatch, userEmail]);
 
   useEffect(() => {
     let newTotal = 0;
@@ -80,7 +73,7 @@ export function Cart({navigation}) {
       <FlatList
         style={styles.itemsList}
         contentContainerStyle={styles.itemsListContainer}
-        data={dataSet}
+        data={myCartItemss.cartItems}
         renderItem={renderProduct}
         keyExtractor={item => item.cartId.toString()}
       />
