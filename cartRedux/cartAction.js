@@ -1,13 +1,18 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
-import {GET_CART, ADD_TO_CART, REMOVE_FROM_CART} from './cartConstants';
+import {
+  GET_CART,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  PLACE_ORDER_BY_CART,
+} from './cartConstants';
 
 export const getCartss = userEmail => {
   return async dispatch => {
     try {
       //console.log(userEmail);
       const res = await axios.get(
-        `https://wideyellowpencil67.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
+        `https://lastmintbook28.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
       );
       if (res.data) {
         dispatch({
@@ -30,7 +35,7 @@ export const addtoCartss = (productId, userEmail, quantity) => {
       //console.log(userEmail);
       const res = await axios
         .post(
-          `https://wideyellowpencil67.conveyor.cloud/api/Order/AddToCart/${productId}/${userEmail}/${quantity}`,
+          `https://lastmintbook28.conveyor.cloud/api/Order/AddToCart/${productId}/${userEmail}/${quantity}`,
         )
         .then(function (response) {
           console.log(response);
@@ -60,7 +65,7 @@ export const removeFromCart = (cartId, userEmail) => {
     try {
       const res = await axios
         .delete(
-          `https://wideyellowpencil67.conveyor.cloud/api/Order/DeleteFromCart/${cartId}/${userEmail}`,
+          `https://lastmintbook28.conveyor.cloud/api/Order/DeleteFromCart/${cartId}/${userEmail}`,
         )
         .then(function (response) {
           console.log(response);
@@ -78,6 +83,47 @@ export const removeFromCart = (cartId, userEmail) => {
         console.log(res.data.message);
       } else {
         console.log('Unable to DELETE ITEM from cart');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const placeOrder = (userEmail, cartProductList) => {
+  return async dispatch => {
+    try {
+      //console.log(userEmail);
+      const res = axios
+        .post(
+          `https://lastmintbook28.conveyor.cloud/api/Order/placeorderbyCart/${userEmail}`,
+          cartProductList,
+        )
+        .then(res => {
+          //console.log("nbot");
+
+          let state = res.data.state;
+
+          if (state === true) {
+            alert('order placed successfully');
+          } else {
+            alert('order placed Faild');
+            //console.log("dsfdf");
+          }
+        })
+        .catch(err => {
+          alert('order placed Faild');
+          console.log('dsfdf');
+        });
+      if (res.data) {
+        dispatch({
+          type: PLACE_ORDER_BY_CART,
+          payload: res.data.message,
+        });
+        console.log('action work IN PLACE ORDER');
+        console.log(res.data.message);
+      } else {
+        console.log('Unable to add to cart');
       }
     } catch (error) {
       console.error(error);

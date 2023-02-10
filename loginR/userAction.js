@@ -19,7 +19,7 @@ export const login = (email, password) => async dispatch => {
     });
 
     const response = await axios
-      .post('https://wideyellowpencil67.conveyor.cloud/api/User/login', {
+      .post('https://lastmintbook28.conveyor.cloud/api/User/login', {
         email,
         password,
       })

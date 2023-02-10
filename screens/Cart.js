@@ -16,6 +16,7 @@ import axios from 'axios';
 
 import {CartItem} from '../components/CartItem';
 import {getCartss} from '../cartRedux/cartAction';
+import {placeOrder} from '../cartRedux/cartAction';
 
 export function Cart({navigation, route}) {
   var clicked = route.params;
@@ -45,28 +46,37 @@ export function Cart({navigation, route}) {
         setSelectedItems={setSelectedItems}
         deleted={deleted}
         setdeleted={setdeleted}
+        selectedCartIds={selectedCartIds}
+        setSelectedCartIds={setSelectedCartIds}
       />
     );
   }
 
-  const [dataSet, setDataSet] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [selectedItems, setSelectedItems] = useState({});
   const [dataFetched, setDataFetched] = useState(false);
   const [deleted, setdeleted] = useState(false);
+
+  const [selectedCartIds, setSelectedCartIds] = useState({});
+
   // if (dataFetched) {
   //   setDataFetched(clicked);
   // }
   useEffect(() => {
-    if (!dataFetched) {
-      dispatch(getCartss(userEmail));
-      setDataFetched(true);
-    } else {
-      // here you can update the component when the button is clicked
-      dispatch(getCartss(userEmail));
-    }
+    // here you can update the component when the button is clicked
+    dispatch(getCartss(userEmail));
   }, [clicked, dispatch, dataFetched, userEmail, deleted]);
+
+  // useEffect(() => {
+  //   if (!dataFetched) {
+  //     dispatch(getCartss(userEmail));
+  //     setDataFetched(true);
+  //   } else {
+  //     // here you can update the component when the button is clicked
+  //     dispatch(getCartss(userEmail));
+  //   }
+  // }, [clicked, dispatch, dataFetched, userEmail, deleted]);
 
   useEffect(() => {
     let newTotal = 0;
@@ -77,7 +87,18 @@ export function Cart({navigation, route}) {
     });
     setTotal(newTotal);
     setTotalQuantity(newTotalQuantity);
-  }, [selectedItems]);
+  }, [selectedItems, selectedCartIds, dataFetched]);
+  console.log('selected cart items');
+  console.log(selectedCartIds);
+
+  const PlaceOrder = () => {
+    dispatch(placeOrder(userEmail, selectedCartIds));
+    setDataFetched(!dataFetched);
+    setTotal(0);
+    setTotalQuantity(0);
+    setSelectedCartIds({});
+    setSelectedItems({});
+  };
 
   return (
     <View style={styles.container}>
@@ -90,7 +111,7 @@ export function Cart({navigation, route}) {
       />
       <View style={styles.checkoutContainer}>
         <Text style={styles.totalAmount}>Total amount: {total}</Text>
-        <TouchableOpacity style={styles.checkoutButton}>
+        <TouchableOpacity onPress={PlaceOrder} style={styles.checkoutButton}>
           <Text style={styles.checkoutButtonText}>Checkout Now</Text>
         </TouchableOpacity>
       </View>

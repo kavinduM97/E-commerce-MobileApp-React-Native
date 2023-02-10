@@ -1,6 +1,11 @@
 /* eslint-disable prettier/prettier */
-import {GET_CART, ADD_TO_CART, REMOVE_FROM_CART} from './cartConstants';
-const initialData = {cartItems: [], addItemsres: []};
+import {
+  GET_CART,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  PLACE_ORDER_BY_CART,
+} from './cartConstants';
+const initialData = {cartItems: [], addItemsres: [], placeOrder: []};
 function cartReducer(state = initialData, action) {
   console.log('cartreducer state');
   console.log(action.payload);
@@ -26,6 +31,12 @@ function cartReducer(state = initialData, action) {
           cartItems => cartItems.cartId !== action.payload.cartId,
         ),
       };
+    case PLACE_ORDER_BY_CART: {
+      const data = state;
+      data.placeOrder = action.payload;
+      console.log('placeOrder' + data);
+      return {...data};
+    }
 
     default:
       return state;

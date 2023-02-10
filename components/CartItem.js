@@ -17,6 +17,8 @@ export function CartItem({
   setSelectedItems,
   deleted,
   setdeleted,
+  selectedCartIds,
+  setSelectedCartIds,
 }) {
   const [clicked, setClicked] = useState(false);
   const dispatch = useDispatch();
@@ -35,10 +37,13 @@ export function CartItem({
   const updateSelectedItems = (cartId, totalPrice, quantity, checked) => {
     if (checked) {
       setSelectedItems({...selectedItems, [cartId]: {totalPrice, quantity}});
+      setSelectedCartIds([...Array.from(selectedCartIds), cartId]);
     } else {
       const newSelectedItems = {...selectedItems};
+      const newSelectedCartIds = [...selectedCartIds];
       delete newSelectedItems[cartId];
       setSelectedItems(newSelectedItems);
+      setSelectedCartIds(newSelectedCartIds.filter(id => id !== cartId));
     }
   };
 
