@@ -43,6 +43,8 @@ export function Cart({navigation, route}) {
         totalQuantity={totalQuantity}
         setTotalQuantity={setTotalQuantity}
         setSelectedItems={setSelectedItems}
+        deleted={deleted}
+        setdeleted={setdeleted}
       />
     );
   }
@@ -52,7 +54,7 @@ export function Cart({navigation, route}) {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [selectedItems, setSelectedItems] = useState({});
   const [dataFetched, setDataFetched] = useState(false);
-
+  const [deleted, setdeleted] = useState(false);
   // if (dataFetched) {
   //   setDataFetched(clicked);
   // }
@@ -64,7 +66,7 @@ export function Cart({navigation, route}) {
       // here you can update the component when the button is clicked
       dispatch(getCartss(userEmail));
     }
-  }, [clicked, dispatch, dataFetched, userEmail]);
+  }, [clicked, dispatch, dataFetched, userEmail, deleted]);
 
   useEffect(() => {
     let newTotal = 0;

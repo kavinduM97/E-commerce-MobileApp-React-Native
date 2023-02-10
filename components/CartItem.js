@@ -2,9 +2,9 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
-
+import {useSelector, useDispatch} from 'react-redux';
 import {Colors, Typography} from 'react-native/Libraries/NewAppScreen';
-
+import {removeFromCart} from '../cartRedux/cartAction';
 export function CartItem({
   productName,
   cartId,
@@ -15,8 +15,22 @@ export function CartItem({
   quantity,
   selectedItems,
   setSelectedItems,
+  deleted,
+  setdeleted,
 }) {
-  const onDelete = () => {};
+  const [clicked, setClicked] = useState(false);
+  const dispatch = useDispatch();
+  const userLogin = useSelector(state => state.userLogin);
+  const {userInfo} = userLogin;
+  const Email = userInfo ? userInfo.Email : null;
+  let userEmail = Email;
+  const OnDelete = () => {
+    dispatch(removeFromCart(cartId, userEmail));
+    setdeleted(!deleted);
+
+    navigation.navigate('Cart', clicked);
+    alert('Item delete from the cart succesfully');
+  };
 
   const updateSelectedItems = (cartId, totalPrice, quantity, checked) => {
     if (checked) {
@@ -52,7 +66,7 @@ export function CartItem({
           style={{width: 20, height: 20}}
         />
 
-        <TouchableOpacity onPress={onDelete} style={styles.closeButton}>
+        <TouchableOpacity onPress={OnDelete} style={styles.closeButton}>
           <Text style={styles.closeButtonText}>X</Text>
         </TouchableOpacity>
       </View>

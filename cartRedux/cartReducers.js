@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {GET_CART, ADD_TO_CART} from './cartConstants';
+import {GET_CART, ADD_TO_CART, REMOVE_FROM_CART} from './cartConstants';
 const initialData = {cartItems: [], addItemsres: []};
 function cartReducer(state = initialData, action) {
   console.log('cartreducer state');
@@ -19,6 +19,13 @@ function cartReducer(state = initialData, action) {
       console.log('addItemsres' + data);
       return {...data};
     }
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          cartItems => cartItems.cartId !== action.payload.cartId,
+        ),
+      };
 
     default:
       return state;
