@@ -20,7 +20,7 @@ export function CartItem({
   selectedCartIds,
   setSelectedCartIds,
 }) {
-  const [clicked, setClicked] = useState(false);
+  //const [clicked, setClicked] = useState(false);
   const dispatch = useDispatch();
   const userLogin = useSelector(state => state.userLogin);
   const {userInfo} = userLogin;
@@ -30,7 +30,7 @@ export function CartItem({
     dispatch(removeFromCart(cartId, userEmail));
     setdeleted(!deleted);
 
-    navigation.navigate('Cart', clicked);
+    navigation.navigate('Cart');
     alert('Item delete from the cart succesfully');
   };
 

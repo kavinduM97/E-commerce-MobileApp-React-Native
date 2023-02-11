@@ -6,7 +6,7 @@ export const getProductsss = () => {
   return async dispatch => {
     try {
       const res = await axios.get(
-        'https://lastmintbook28.conveyor.cloud/api/Product',
+        'https://greatbrasshouse8.conveyor.cloud/api/Product',
       );
       if (res.data) {
         console.log(res.data);

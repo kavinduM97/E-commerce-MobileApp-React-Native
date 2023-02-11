@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
+
 import {
   GET_CART,
   ADD_TO_CART,
@@ -12,7 +13,7 @@ export const getCartss = userEmail => {
     try {
       //console.log(userEmail);
       const res = await axios.get(
-        `https://lastmintbook28.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
+        `https://greatbrasshouse8.conveyor.cloud/api/Order/GetAllProductsInCart/${userEmail}`,
       );
       if (res.data) {
         dispatch({
@@ -35,7 +36,7 @@ export const addtoCartss = (productId, userEmail, quantity) => {
       //console.log(userEmail);
       const res = await axios
         .post(
-          `https://lastmintbook28.conveyor.cloud/api/Order/AddToCart/${productId}/${userEmail}/${quantity}`,
+          `https://greatbrasshouse8.conveyor.cloud/api/Order/AddToCart/${productId}/${userEmail}/${quantity}`,
         )
         .then(function (response) {
           console.log(response);
@@ -65,7 +66,7 @@ export const removeFromCart = (cartId, userEmail) => {
     try {
       const res = await axios
         .delete(
-          `https://lastmintbook28.conveyor.cloud/api/Order/DeleteFromCart/${cartId}/${userEmail}`,
+          `https://greatbrasshouse8.conveyor.cloud/api/Order/DeleteFromCart/${cartId}/${userEmail}`,
         )
         .then(function (response) {
           console.log(response);
@@ -94,36 +95,23 @@ export const placeOrder = (userEmail, cartProductList) => {
   return async dispatch => {
     try {
       //console.log(userEmail);
-      const res = axios
-        .post(
-          `https://lastmintbook28.conveyor.cloud/api/Order/placeorderbyCart/${userEmail}`,
-          cartProductList,
-        )
-        .then(res => {
-          //console.log("nbot");
-
-          let state = res.data.state;
-
-          if (state === true) {
-            alert('order placed successfully');
-          } else {
-            alert('order placed Faild');
-            //console.log("dsfdf");
-          }
-        })
-        .catch(err => {
-          alert('order placed Faild');
-          console.log('dsfdf');
-        });
-      if (res.data) {
+      const res = await axios.post(
+        `https://greatbrasshouse8.conveyor.cloud/api/Order/placeorderbyCart/${userEmail}`,
+        cartProductList,
+      );
+      //console.log(res);
+      if (res.data.state) {
         dispatch({
           type: PLACE_ORDER_BY_CART,
-          payload: res.data.message,
+          payload: res.data.transid,
         });
         console.log('action work IN PLACE ORDER');
-        console.log(res.data.message);
+        console.log(res.data);
+        console.log(res.data.state);
+        console.log(res.data.transid);
+        alert('Order Placed sucessfully');
       } else {
-        console.log('Unable to add to cart');
+        console.log('Unable place orderrr');
       }
     } catch (error) {
       console.error(error);

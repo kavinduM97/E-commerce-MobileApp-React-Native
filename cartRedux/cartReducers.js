@@ -5,7 +5,7 @@ import {
   REMOVE_FROM_CART,
   PLACE_ORDER_BY_CART,
 } from './cartConstants';
-const initialData = {cartItems: [], addItemsres: [], placeOrder: []};
+const initialData = {cartItems: [], addItemsres: [], placeOrder: 0};
 function cartReducer(state = initialData, action) {
   console.log('cartreducer state');
   console.log(action.payload);
@@ -21,7 +21,7 @@ function cartReducer(state = initialData, action) {
     case ADD_TO_CART: {
       const data = state;
       data.addItemsres = action.payload;
-      console.log('addItemsres' + data);
+      console.log('addItemsres');
       return {...data};
     }
     case REMOVE_FROM_CART:
@@ -34,7 +34,9 @@ function cartReducer(state = initialData, action) {
     case PLACE_ORDER_BY_CART: {
       const data = state;
       data.placeOrder = action.payload;
-      console.log('placeOrder' + data);
+      console.log('placeOrder');
+      console.log(data.placeOrder);
+      console.log('placeOrder');
       return {...data};
     }
 

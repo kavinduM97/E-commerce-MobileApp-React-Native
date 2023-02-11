@@ -27,7 +27,7 @@ export function SignUp({navigation}) {
       );
     }
     // Add your authentication logic here
-    fetch('https://tallyellowbike94.conveyor.cloud/api/User/register', {
+    fetch('https://earlybrassboat80.conveyor.cloud/api/User/register', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
